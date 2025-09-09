@@ -1,0 +1,33 @@
+# Default configuration for training and exporting the California Housing model
+# TODO: If you have a real dataset CSV, set data.path to its filesystem path
+# and update preprocessing/input_schema as needed.
+
+project_name: "california_housing_model"
+
+random_seed: 42
+
+# Hold-out test split
+test_size: 0.2
+
+# Data configuration
+data:
+  # If provided, we will read this CSV (must contain features and target columns)
+  path: null
+  # Target column name. If using the built-in sklearn dataset or synthetic fallback,
+  # this is automatically set to MedHouseVal.
+  target_column: "MedHouseVal"
+
+# Artifacts configuration
+artifacts_dir: "artifacts"
+
+# Model hyperparameters (RandomForestRegressor by default)
+model:
+  type: "RandomForestRegressor"
+  params:
+    n_estimators: 100
+    max_depth: null
+    n_jobs: -1
+    random_state: 42
+
+# Notebook source metadata for traceability
+notebook_source: "housingCalifornia.ipynb"
