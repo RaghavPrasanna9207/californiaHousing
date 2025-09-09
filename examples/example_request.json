@@ -1,0 +1,24 @@
+{
+  "records": [
+    {
+      "MedInc": 5.0,
+      "HouseAge": 20,
+      "AveRooms": 6.0,
+      "AveBedrms": 2.2,
+      "Population": 1500,
+      "AveOccup": 3.0,
+      "Latitude": 37.5,
+      "Longitude": -121.9
+    },
+    {
+      "MedInc": 3.2,
+      "HouseAge": 35,
+      "AveRooms": 4.5,
+      "AveBedrms": 1.8,
+      "Population": 2500,
+      "AveOccup": 2.6,
+      "Latitude": 34.2,
+      "Longitude": -118.3
+    }
+  ]
+}
