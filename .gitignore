@@ -1,0 +1,20 @@
+# Python environment
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Artifacts and data
+artifacts/
+data/
+*.joblib
+*.onnx
+*.zip
+
+# Test / editor
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
