@@ -1,0 +1,3 @@
+MedInc,HouseAge,AveRooms,AveBedrms,Population,AveOccup,Latitude,Longitude,prediction
+5.0,20,6.0,2.2,1500,3.0,37.5,-121.9,2.4080799999999996
+3.2,35,4.5,1.8,2500,2.6,34.2,-118.3,2.3832400000000002
