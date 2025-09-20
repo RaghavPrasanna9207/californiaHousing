@@ -1,0 +1,61 @@
+==========================
+MODEL SCHEMA - California Housing
+==========================
+
+1. Feature Names (Inputs to Model)
+----------------------------------
+longitude
+latitude
+housing_median_age
+total_rooms
+total_bedrooms
+population
+households
+median_income
+ocean_proximity
+
+2. Target / Output
+------------------
+median_house_value (in US dollars)
+
+3. Preprocessing Details
+------------------------
+- Numerical features:
+  longitude, latitude, housing_median_age, total_rooms,
+  total_bedrooms, population, households, median_income
+  → scaled using StandardScaler (mean=0, std=1)
+
+- Categorical feature:
+  ocean_proximity
+  → encoded using OneHotEncoder
+    Possible values:
+      "<1H OCEAN"
+      "INLAND"
+      "NEAR OCEAN"
+      "NEAR BAY"
+      "ISLAND"
+
+4. Example JSON Payload (for API /predict)
+------------------------------------------
+{
+  "longitude": -118.25,
+  "latitude": 34.05,
+  "housing_median_age": 29,
+  "total_rooms": 5000,
+  "total_bedrooms": 1000,
+  "population": 1500,
+  "households": 500,
+  "median_income": 3.2,
+  "ocean_proximity": "INLAND"
+}
+
+5. Notes
+--------
+- median_income is expressed in tens of thousands of dollars.
+  (e.g., 3.2 → $32,000 median income)
+- median_house_value prediction is the estimated house price in dollars.
+- Feature ranges (approximate):
+  longitude: -124.35 to -114.31
+  latitude: 32.54 to 41.95
+  housing_median_age: 1 to 52
+  median_income: ~0.5 to 15
