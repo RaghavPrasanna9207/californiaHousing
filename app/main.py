@@ -27,18 +27,11 @@ app = FastAPI(
 # Add CORS middleware with restricted origins for security
 # For local development, you can use ["http://localhost:3000", "http://127.0.0.1:3000"]
 # For production, replace with your actual frontend domain(s)
-ALLOWED_ORIGINS = [
-    "http://localhost:3000",    # React default dev server
-    "http://127.0.0.1:3000",   # Alternative localhost
-    "http://localhost:5173",    # Vite default dev server
-    "http://127.0.0.1:5173",   # Alternative localhost for Vite
-    # Add your production frontend domain here:
-    # "https://your-frontend-domain.com"
-]
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
