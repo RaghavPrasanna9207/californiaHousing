@@ -1,19 +1,12 @@
 import argparse
 import json
 import os
-from typing import Any, Dict
+from typing import Dict
 
-import joblib
 import pandas as pd
 
-
-def load_model(path: str):
-    return joblib.load(path)
-
-
-def predict(model, input_df: pd.DataFrame) -> pd.Series:
-    preds = model.predict(input_df)
-    return pd.Series(preds, name="prediction")
+# Import centralized utilities
+from src.utils.model_loader import load_model, predict as predict_array
 
 
 def main() -> int:
@@ -33,7 +26,8 @@ def main() -> int:
         raise ValueError("Input JSON must be a list of records or an object with key 'records'.")
 
     input_df = pd.DataFrame.from_records(records)
-    preds = predict(model, input_df)
+    preds_array = predict_array(model, input_df)
+    preds = pd.Series(preds_array, name="prediction")
     out_df = input_df.copy()
     out_df["prediction"] = preds
     out_df.to_csv(args.output_csv, index=False)
