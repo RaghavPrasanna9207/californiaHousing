@@ -400,7 +400,17 @@
 
                     if (!response.ok) {
                         const errorData = await response.json();
-                        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                        let errorMessage;
+                        if (errorData.detail) {
+                            if (typeof errorData.detail === 'object') {
+                                errorMessage = JSON.stringify(errorData.detail, null, 2);
+                            } else {
+                                errorMessage = errorData.detail;
+                            }
+                        } else {
+                            errorMessage = `HTTP error! status: ${response.status}`;
+                        }
+                        throw new Error(errorMessage);
                     }
 
                     const result = await response.json();
@@ -408,7 +418,15 @@
 
                 } catch (error) {
                     console.error('Prediction error:', error);
-                    this.showError(error.message || 'Failed to get prediction. Please try again.');
+                    let errorMessage;
+                    if (error.message) {
+                        errorMessage = error.message;
+                    } else if (typeof error === 'object') {
+                        errorMessage = JSON.stringify(error, null, 2);
+                    } else {
+                        errorMessage = String(error) || 'Failed to get prediction. Please try again.';
+                    }
+                    this.showError(errorMessage);
                 } finally {
                     this.setLoading(false);
                 }
@@ -428,7 +446,7 @@
                     return num;
                 };
 
-                const data = {
+                const rawData = {
                     Population: get("Population"),
                     Latitude: get("Latitude"),
                     Longitude: get("Longitude"),
@@ -439,7 +457,8 @@
                     MedInc: get("MedInc")
                 };
                 
-                return data;
+                // Wrap in 'raw' field as expected by backend schema
+                return { raw: rawData };
             }
 
             setLoading(loading) {
