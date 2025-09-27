@@ -257,7 +257,7 @@ textarea {
 }
 
 input[type="number"] {
-  text-align: right;
+  text-align: center;
 }
 
 select {
