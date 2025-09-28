@@ -1,46 +1,74 @@
 # Housing Price Prediction Frontend
 
-A clean, minimal, and responsive web frontend for the California Housing Price Prediction API.
+A modern, responsive web frontend for the California Housing Price Prediction API with real-time validation, loading states, and an intuitive user experience.
 
 ## Features
 
-- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices
-- **Form Validation**: Client-side validation with real-time feedback
-- **API Integration**: Connects to the FastAPI backend for predictions
-- **Error Handling**: Comprehensive error handling with user-friendly messages
-- **Loading States**: Visual feedback during API requests
-- **Currency Formatting**: Professional display of predicted prices
+- **🎨 Modern UI Design**: Clean purple gradient theme with professional styling
+- **📱 Fully Responsive**: Optimized for desktop, tablet, and mobile devices
+- **✅ Smart Validation**: Real-time input validation with contextual error messages
+- **🔄 Loading States**: Visual feedback with spinners and form overlays during API requests
+- **🔄 Reset Functionality**: One-click form reset with validation cleanup
+- **🎯 Focus Management**: Intelligent focus handling and accessibility features
+- **💰 Currency Formatting**: Professional display of predicted housing prices
+- **🔗 API Integration**: Seamless connection to FastAPI backend
+- **♿ Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
 
-## Usage
+## Quick Start
 
-1. **Development**: Open `index.html` in your browser
-2. **Production**: Serve the file using any web server
+### Prerequisites
+Ensure the backend API is running on `http://localhost:8000`. See the main README for backend setup instructions.
+
+### Running the Frontend
+1. **Local Development**: Simply open `frontend/index.html` in your web browser
+2. **Web Server**: For production, serve the files using any web server (nginx, Apache, etc.)
 
 ## Configuration
 
-The frontend is configured to connect to the backend at `http://localhost:8000`. To change this:
+### API Endpoint Configuration
+The frontend connects to the backend at `http://localhost:8000/predict` by default. To change this:
 
 1. Open `index.html`
-2. Find the line: `this.apiUrl = 'http://localhost:8000/predict';`
+2. Find the line in the JavaScript: `this.apiUrl = 'http://localhost:8000/predict';`
 3. Update the URL to match your backend deployment
 
-## Input Fields
+## User Interface
 
-The form collects the following housing data:
+### Form Fields
+The prediction form collects the following California housing data:
 
-- **Longitude**: Decimal number (-180 to 180)
-- **Latitude**: Decimal number (-90 to 90)  
-- **Median Age**: Housing age in years (0-100)
-- **Total Rooms**: Number of rooms (minimum 1)
-- **Total Bedrooms**: Number of bedrooms (minimum 1)
-- **Population**: Area population (minimum 1)
-- **Households**: Number of households (minimum 1)
-- **Median Income**: Income in tens of thousands (e.g., 8.3252 = $83,252)
-- **Ocean Proximity**: Dropdown with options (Near Bay, Near Ocean, <1H Ocean, Inland, Island)
+| Field | Description | Validation |
+|-------|-------------|------------|
+| **Longitude** | Geographic longitude coordinate | -180 to 180 |
+| **Latitude** | Geographic latitude coordinate | -90 to 90 |
+| **Median Age** | Housing median age in years | 0-100 years |
+| **Average Rooms** | Average number of rooms per household | Minimum 1 |
+| **Average Bedrooms** | Average number of bedrooms per household | Minimum 0.1 |
+| **Population** | Area population count | Minimum 1 |
+| **Average Occupancy** | Average occupancy per household | Minimum 0.1 |
+| **Median Income** | Median income in tens of thousands | Minimum 0 (e.g., 8.3252 = $83,252) |
+
+### Validation Features
+- **Real-time validation**: Error messages appear only when fields are focused or invalid
+- **Contextual help**: Validation messages provide specific guidance
+- **Visual feedback**: Invalid fields are highlighted with red borders
+- **Form state management**: Submit button disabled during validation errors
+
+### Loading States
+- **Button loading**: Submit button shows spinner during API requests
+- **Form overlay**: Semi-transparent overlay prevents interaction during loading
+- **Visual feedback**: Clear indication of request progress
+
+### Results Display
+- **Success state**: Green gradient card with formatted price prediction
+- **Error state**: Red gradient card with error message details
+- **Model metadata**: Displays model version and accuracy metrics when available
+- **Currency formatting**: Professional USD formatting with thousands separators
 
 ## API Response
 
-The frontend expects the following response format from the `/predict` endpoint:
+### Expected Response Format
+The frontend expects this JSON structure from the `/predict` endpoint:
 
 ```json
 {
@@ -48,13 +76,61 @@ The frontend expects the following response format from the `/predict` endpoint:
   "model_version": "20250909_130932",
   "metadata": {
     "train_metrics": {"rmse": 49401.57, "r2": 0.8239},
-    "feature_names": ["longitude", "latitude", ...]
+    "feature_names": ["MedInc", "HouseAge", "AveRooms", ...]
   }
 }
 ```
 
-## Browser Support
+### Error Handling
+The frontend gracefully handles various error scenarios:
+- **Network errors**: Connection issues with the backend
+- **Validation errors**: Invalid input data format
+- **Server errors**: Backend processing failures
+- **Timeout errors**: Long-running prediction requests
 
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-- Responsive design works on all screen sizes
+## Technical Details
+
+### Architecture
+- **Vanilla JavaScript**: No external dependencies for maximum compatibility
+- **CSS Grid & Flexbox**: Modern layout techniques for responsive design
+- **CSS Custom Properties**: Consistent theming and easy customization
+- **Progressive Enhancement**: Works without JavaScript for basic functionality
+
+### Browser Compatibility
+- **Modern browsers**: Chrome 88+, Firefox 85+, Safari 14+, Edge 88+
+- **Mobile browsers**: iOS Safari 14+, Chrome Mobile 88+
+- **Responsive breakpoints**: 1200px (desktop), 900px (tablet), 600px (mobile)
+
+### Performance Features
+- **Optimized CSS**: Efficient selectors and minimal reflows
+- **Smooth animations**: Hardware-accelerated transitions
+- **Reduced motion support**: Respects user accessibility preferences
+- **Fast loading**: Minimal external dependencies
+
+## Customization
+
+### Color Scheme
+The design uses CSS custom properties for easy theming:
+
+```css
+:root {
+  --color-primary-start: #4338ca;    /* Hero gradient start */
+  --color-primary-end: #7c3aed;      /* Hero gradient end */
+  --color-accent-start: #7c3aed;     /* Button gradient start */
+  --color-accent-end: #c026d3;       /* Button gradient end */
+  --color-success-start: #059669;    /* Success state */
+  --color-error-start: #dc2626;      /* Error state */
+}
+```
+
+### Typography
+- **Font family**: Inter (Google Fonts) with system fallbacks
+- **Font sizes**: Responsive scaling from 14px to 72px
+- **Font weights**: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold)
+
+### Layout Customization
+- **Container width**: Max 1100px with responsive padding
+- **Form grid**: Two-column desktop layout, single-column mobile
+- **Spacing system**: 8px base unit with consistent scaling
+
+## Browser Support
