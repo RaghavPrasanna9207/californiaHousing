@@ -70,6 +70,10 @@
                     
                     <span class="text">Predict Housing Price</span>
                 </button>
+
+                <button type="button" class="reset-btn" id="resetBtn">
+                    Reset Form
+                </button>
             </form>
 
             <div id="results" class="results" style="display: none;">
@@ -84,6 +88,7 @@
             constructor() {
                 this.form = document.getElementById('predictionForm');
                 this.submitBtn = document.getElementById('submitBtn');
+                this.resetBtn = document.getElementById('resetBtn');
                 this.results = document.getElementById('results');
                 this.resultsTitle = document.getElementById('resultsTitle');
                 this.resultsContent = document.getElementById('resultsContent');
@@ -96,6 +101,7 @@
 
             init() {
                 this.form.addEventListener('submit', this.handleSubmit.bind(this));
+                this.resetBtn.addEventListener('click', this.handleReset.bind(this));
                 this.addInputValidation();
             }
 
@@ -237,9 +243,13 @@
                 if (loading) {
                     this.submitBtn.classList.add('loading');
                     this.submitBtn.disabled = true;
+                    this.resetBtn.disabled = true;
+                    this.form.classList.add('form-loading');
                 } else {
                     this.submitBtn.classList.remove('loading');
                     this.submitBtn.disabled = false;
+                    this.resetBtn.disabled = false;
+                    this.form.classList.remove('form-loading');
                 }
             }
 
@@ -289,6 +299,30 @@
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0
                 }).format(amount);
+            }
+
+            handleReset() {
+                // Reset form fields
+                this.form.reset();
+                
+                // Clear all validation errors
+                const formGroups = this.form.querySelectorAll('.form-group');
+                formGroups.forEach(group => {
+                    group.classList.remove('has-error');
+                    const errorDiv = group.querySelector('.error');
+                    if (errorDiv) {
+                        errorDiv.style.display = 'none';
+                    }
+                });
+                
+                // Hide results
+                this.hideResults();
+                
+                // Focus first input
+                const firstInput = this.form.querySelector('input');
+                if (firstInput) {
+                    firstInput.focus();
+                }
             }
         }
 
